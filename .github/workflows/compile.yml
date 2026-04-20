@@ -1,0 +1,20 @@
+name: Compile Firmware
+
+on: [push] # Запуск при каждом пуше в репозиторий
+
+jobs:
+  build_job: # Название задания
+    runs-on: ubuntu-latest # Используем сервер на Linux
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Копируем файлы репозитория на сервер
+
+      - name: Install Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi # Установка компилятора ARM
+
+      - name: Build Project
+        run: |
+          make # Или другая команда сборки (например, pio run)
